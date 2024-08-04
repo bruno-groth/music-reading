@@ -4,6 +4,12 @@ FROM php:8.3-fpm
 # Instale extensões necessárias
 RUN docker-php-ext-install pdo pdo_mysql
 
+RUN apt-get update && apt-get install -y libzip-dev && docker-php-ext-install zip
+
+# Install Node.js and npm
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
+RUN apt-get install -y nodejs
+
 # Instale o Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
